@@ -41,6 +41,7 @@ public final class WorkProcessor implements Serializable,Runnable ,Comparable<Wo
             }
             
         } catch (Throwable throwable ) {
+            log.error(String.format("asynWork:%s call exception ",asynWork),throwable);
             //if execute asyn work is error,errorAsynWorkHandler disposal
             if (applicationContext.getErrorAsynWorkHandler() != null) {
             	applicationContext.getErrorAsynWorkHandler().addErrorWork(asynWork,throwable);

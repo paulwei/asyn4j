@@ -6,6 +6,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.googlecode.asyn4j.springbean.Boy;
+import com.googlecode.asyn4j.springbean.TestService;
 import junit.framework.TestCase;
 
 import org.junit.Before;
@@ -40,14 +42,14 @@ public class ServiceExcute {
         anycService.setServiceHandler(new FileAsynServiceHandler("c:/asyn.data"));
         anycService.init();
         TestBean aa = new TestBean();
-        for (long i = 0; i < 700; i++) {
+        for (long i = 0; i < 100; i++) {
             anycService.addWork(aa, "myName",new Object[] { "panxiuyan" + i },new MyResult());
             if (i % 99 == 0) {
                 System.out.println(anycService.getRunStatInfo());
             }
         }
         
-        Thread.sleep(Long.MAX_VALUE);
+        /*Thread.sleep(Long.MAX_VALUE);*/
 
     }
 
@@ -58,7 +60,7 @@ public class ServiceExcute {
         anycService.init();
         ArrayList list = new ArrayList();
         anycService.addWork( TestBean.class, "myName", new Object[] { list },new MyResult());
-        Thread.sleep(Long.MAX_VALUE);
+//        Thread.sleep(Long.MAX_VALUE);
 
     }
 
@@ -67,7 +69,7 @@ public class ServiceExcute {
     public void testExecutSpring() throws InterruptedException {
         TestMain testMain = (TestMain) context.getBean("testMain");
         testMain.maintest();
-        Thread.sleep(Long.MAX_VALUE);
+//        Thread.sleep(Long.MAX_VALUE);
     }
 
     @Test
@@ -124,7 +126,7 @@ public class ServiceExcute {
     public void testSpringErrorHandler() throws InterruptedException {
         TestMain testMain = (TestMain) context.getBean("testMain");
         testMain.maintest();
-        Thread.sleep(Long.MAX_VALUE);
+  /*      Thread.sleep(Long.MAX_VALUE);*/
     }
 
     public static class MyResult extends AsynCallBack {
@@ -138,6 +140,28 @@ public class ServiceExcute {
         public void doNotify() {
             if (this.methodResult != null) {
                 System.out.println(methodResult.toString());
+            }
+        }
+    }
+
+
+    @Test
+    public void testExecut5() throws InterruptedException {
+        AsynService anycService = AsynServiceImpl.getService();
+        anycService.setWorkQueueFullHandler(new CacheAsynWorkHandler(100));
+//        anycService.setServiceHandler(new FileAsynServiceHandler("c:/asyn.data"));
+        anycService.setErrorAsynWorkHandler(new DefaultErrorAsynWorkHandler());
+        anycService.init();
+        Boy boy = new Boy(12,"lilei",0);
+        for (int i = 0; i < 2; i++) {
+            anycService.addWork(TestService.class, "getGirlByBoy",new Object[] {boy,i},new AsynCallBack(){
+                @Override
+                public void doNotify() {
+
+                }
+            });
+            if (i % 1 == 0) {
+                System.out.println(anycService.getRunStatInfo());
             }
         }
     }

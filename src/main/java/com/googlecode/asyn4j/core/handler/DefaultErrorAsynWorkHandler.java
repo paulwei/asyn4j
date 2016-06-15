@@ -16,7 +16,7 @@ public class DefaultErrorAsynWorkHandler extends ErrorAsynWorkHandler {
 
     @Override
     public void addErrorWork(AsynWork asynWork, Throwable throwable) {
-        log.warn(asynWork.getThreadName() + " run is error, error info: " + throwable);
+        log.error(asynWork.getThreadName() + " run is error, error info: " + throwable);
     }
 
 }

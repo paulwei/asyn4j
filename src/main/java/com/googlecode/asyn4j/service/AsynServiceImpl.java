@@ -43,9 +43,9 @@ import com.googlecode.asyn4j.spring.AsynSpringUtil;
 
 @SuppressWarnings("unchecked")
 public class AsynServiceImpl extends ApplicationContext implements AsynService {
-    private static final Log                                    log                  = LogFactory.getLog(AsynServiceImpl.class);
+    private static final Log                              log                  = LogFactory.getLog(AsynServiceImpl.class);
     // service run flag
-    private static boolean                                run                  = false;
+    private static volatile boolean                       run                  = false;
     // status info stringbuffer
     private static StringBuilder                          infoSb               = new StringBuilder();
 

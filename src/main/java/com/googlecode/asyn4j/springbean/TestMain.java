@@ -11,7 +11,7 @@ public class TestMain {
 	}
 	
 	public void maintest(){
-		for(int i=0;i<100000000;i++){
+		for(int i=0;i<1000;i++){
 			asynService.addWork("testBean", "myName",new Object[] { "panxiuyan" + i });
 			if(i%99==0){
 			    System.out.println(asynService.getRunStatInfo());

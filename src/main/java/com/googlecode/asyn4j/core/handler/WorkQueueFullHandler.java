@@ -14,7 +14,7 @@ public abstract class WorkQueueFullHandler implements AsynHandler{
 	
 	/**
 	 * add the asynwork to handler
-	 * @param synWork
+	 * @param asynWork
 	 */
 	public abstract boolean addAsynWork(AsynWork  asynWork);
 	

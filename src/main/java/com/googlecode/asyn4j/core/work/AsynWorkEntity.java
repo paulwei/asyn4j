@@ -2,6 +2,7 @@ package com.googlecode.asyn4j.core.work;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -99,7 +100,13 @@ public class AsynWorkEntity implements AsynWork,Serializable {
     public int getWeight() {
         return workWeight.getValue();
     }
-    
-    
 
+    @Override
+    public String toString() {
+        return "AsynWorkEntity{" +
+                "params=" + Arrays.toString(params) +
+                ", target=" + target +
+                ", method='" + method + '\'' +
+                '}';
+    }
 }
